@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+type ScoreMap = { [key: string]: number[] };
+
 const factorMap = [
   "外向性","外向性","外向性","外向性","外向性","外向性",
   "協調性","協調性","協調性","協調性","協調性","協調性",
@@ -12,7 +14,7 @@ const factorMap = [
   "やり抜く力","やり抜く力","やり抜く力","やり抜く力","やり抜く力","やり抜く力"
 ];
 
-const jobSuggestions = {
+const jobSuggestions: { [key: string]: string[] } = {
   "外向性": ["営業職", "イベントプランナー", "販売員"],
   "協調性": ["介護士", "保育士", "看護師"],
   "勤勉性": ["会計士", "教師", "品質管理"],
@@ -30,8 +32,8 @@ export default function Result() {
     const stored = localStorage.getItem('jobtune_answers');
     if (stored) {
       const answers: number[] = JSON.parse(stored);
-      const scoreObj: { [key: string]: number[] } = {};
-      factorMap.forEach((factor, idx) => {
+      const scoreObj: ScoreMap = {};
+      factorMap.forEach((factor: string, idx: number) => {
         if (!scoreObj[factor]) scoreObj[factor] = [];
         scoreObj[factor].push(answers[idx]);
       });
