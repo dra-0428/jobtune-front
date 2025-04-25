@@ -30,7 +30,11 @@ export default function Result() {
     const stored = localStorage.getItem('jobtune_answers');
     if (stored) {
       const answers: number[] = JSON.parse(stored);
-      const scoreObj: { [key: string]: number[] } = {};
+    const scoreObj: { [key: string]: number[] } = {};
+factorMap.forEach((factor, idx) => {
+  if (!scoreObj[factor]) scoreObj[factor] = [];
+  scoreObj[factor].push(answers[idx]);
+});
       factorMap.forEach((factor, idx) => {
         if (!scoreObj[factor]) scoreObj[factor] = [];
         scoreObj[factor].push(answers[idx]);
