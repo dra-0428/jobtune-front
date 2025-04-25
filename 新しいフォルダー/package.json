@@ -1,6 +1,6 @@
 
 {
-  "name": "jobtune-frontend",
+  "name": "jobtune-final",
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
