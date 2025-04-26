@@ -1,0 +1,20 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const Home: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleStart = () => {
+    navigate('/question');
+  };
+
+  return (
+    <div className="home">
+      <h1>ジョブチューニングへようこそ！</h1>
+      <p>簡単な質問に答えるだけで、あなたに合った職業や性格、趣味、友人傾向がわかります！</p>
+      <button onClick={handleStart}>診断スタート！</button>
+    </div>
+  );
+};
+
+export default Home;

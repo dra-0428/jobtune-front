@@ -1,0 +1,28 @@
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { calculateResult } from '../utils/calculateResult';
+
+const Result: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { answers } = location.state as { answers: number[] };
+
+  const result = calculateResult(answers);
+
+  const handleRestart = () => {
+    navigate('/');
+  };
+
+  return (
+    <div className="result">
+      <h2>診断結果</h2>
+      <p><strong>向いている職業：</strong> {result.career}</p>
+      <p><strong>あなたの性格タイプ：</strong> {result.personality}</p>
+      <p><strong>おすすめの趣味：</strong> {result.hobby}</p>
+      <p><strong>相性の良い友人タイプ：</strong> {result.friendType}</p>
+      <button onClick={handleRestart}>もう一度診断する</button>
+    </div>
+  );
+};
+
+export default Result;
