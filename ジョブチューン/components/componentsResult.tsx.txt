@@ -1,0 +1,50 @@
+// ファイル名: components/Result.tsx
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+const Result = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const answers: number[] = location.state?.answers || [];
+
+  const average = (answers.reduce((a, b) => a + b, 0) / answers.length) || 0;
+
+  const getProfessionSuggestions = () => {
+    if (average >= 4) return ['起業家', 'クリエイティブディレクター', 'マーケティング職'];
+    if (average >= 3) return ['教員', 'エンジニア', '広報'];
+    if (average >= 2) return ['事務職', '営業サポート', 'カスタマーサービス'];
+    return ['警備員', '配送業', '清掃スタッフ'];
+  };
+
+  const professions = getProfessionSuggestions();
+
+  return (
+    <div className="result-page">
+      <h2>診断結果</h2>
+      <p><strong>あなたの傾向スコア（平均）:</strong> {average.toFixed(1)} / 5</p>
+
+      <h3>おすすめの職業</h3>
+      <ul>
+        {professions.map((job, idx) => <li key={idx}>{job}</li>)}
+      </ul>
+
+      <h3>あなたの性格傾向</h3>
+      <p>前向きで自己成長意欲が高く、冷静に物事に取り組める傾向があります。</p>
+
+      <h3>あなたの強み</h3>
+      <p>責任感、柔軟性、論理的思考力、共感力</p>
+
+      <h3>おすすめの行動</h3>
+      <p>オンライン講座の受講や、ボランティア・グループ活動に参加することで新たなスキルや視野が広がります。</p>
+
+      <div className="result-buttons">
+        <button onClick={() => navigate('/')}>もう一度診断する</button>
+        <button onClick={() => window.print()}>PDFで保存する</button>
+      </div>
+
+      <p className="mascot-comment">マスコットからのひとこと：「君はきっと素敵な未来をつくれるね！」</p>
+    </div>
+  );
+};
+
+export default Result;

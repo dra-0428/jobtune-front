@@ -1,0 +1,37 @@
+// ファイル名: components/Diagnosis.tsx
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { questions } from '../data/questions';
+import Mascot from './Mascot';
+import Question from './Question';
+
+const Diagnosis = () => {
+  const [answers, setAnswers] = useState<number[]>(Array(questions.length).fill(0));
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const navigate = useNavigate();
+
+  const handleAnswer = (score: number) => {
+    const updated = [...answers];
+    updated[currentQuestion] = score;
+    setAnswers(updated);
+
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      navigate('/result', { state: { answers: updated } });
+    }
+  };
+
+  return (
+    <div className="diagnosis-container">
+      <Mascot current={currentQuestion} total={questions.length} />
+      <Question
+        index={currentQuestion}
+        question={questions[currentQuestion]}
+        onAnswer={handleAnswer}
+      />
+    </div>
+  );
+};
+
+export default Diagnosis;

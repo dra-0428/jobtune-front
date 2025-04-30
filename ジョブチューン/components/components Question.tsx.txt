@@ -1,0 +1,34 @@
+// ファイル名: components/Question.tsx
+import React from 'react';
+
+interface QuestionProps {
+  index: number;
+  question: string;
+  onAnswer: (score: number) => void;
+}
+
+const Question: React.FC<QuestionProps> = ({ index, question, onAnswer }) => {
+  const options = [
+    'まったく当てはまらない',
+    'あまり当てはまらない',
+    'どちらともいえない',
+    'やや当てはまる',
+    'とても当てはまる',
+  ];
+
+  return (
+    <div className="question-box">
+      <h2>質問 {index + 1}</h2>
+      <p>{question}</p>
+      <div className="scale-options">
+        {options.map((opt, idx) => (
+          <button key={idx} onClick={() => onAnswer(idx + 1)}>
+            {opt}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Question;

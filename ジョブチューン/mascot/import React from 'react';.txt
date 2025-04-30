@@ -1,0 +1,13 @@
+import React from 'react';
+import mascotImage from '../assets/mascot.png';
+
+const Mascot = ({ message }: { message?: string }) => {
+  return (
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <img src={mascotImage} alt="マスコットキャラ" width="180" />
+      {message && <p style={{ fontWeight: 'bold', color: '#e06287' }}>{message}</p>}
+    </div>
+  );
+};
+
+export default Mascot;
